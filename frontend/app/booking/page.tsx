@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 export default function BookingPage() {
   const searchParams = useSearchParams()
   const barber = searchParams.get("barber")
+/* const barber = searchParams.get("barber") */
 
   return (
     <div>

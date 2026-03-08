@@ -1,97 +1,33 @@
-"use client";
+import ScrollReveal from "../components/ScrollReveal"
 
-import { useEffect, useState } from "react";
-import { getServices } from "../../lib/api";
-import type { Service } from "../../lib/types";
-import Link from "next/link";
-
-export default function ServicesPage() {
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let isMounted = true;
-    (async () => {
-      try {
-        const data = await getServices();
-        if (isMounted) {
-          setServices(data);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError(err instanceof Error ? err.message : "Failed to load services");
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
-      }
-    })();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+export default function Services() {
+  const services = [
+    { name: "Haircut", price: "$20", duration: "30 min" },
+    { name: "Beard Trim", price: "$15", duration: "20 min" },
+    { name: "Hair + Beard", price: "$30", duration: "45 min" },
+  ]
 
   return (
-    <div>
-      <h1 className="page-title">Services</h1>
-      <p className="text-sm text-muted mb-6">
-        Choose from a curated list of cuts, shaves, and grooming services.
-      </p>
+    <div className="min-h-screen bg-[#08080f] text-white px-6 py-24">
+      <h1 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+        Our Services
+      </h1>
 
-      {loading && (
-        <div className="grid gap-4 md:grid-cols-3">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div
-              key={i}
-              className="card p-5 animate-pulse space-y-4 bg-surface/80"
-            >
-              <div className="h-4 w-2/3 rounded bg-surfaceAlt" />
-              <div className="h-3 w-1/3 rounded bg-surfaceAlt" />
-              <div className="h-9 w-full rounded-full bg-surfaceAlt mt-2" />
+      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {services.map((s, i) => (
+          <ScrollReveal key={i}>
+            <div className="p-6 rounded-xl bg-white/5 backdrop-blur border border-white/10 hover:scale-105 transition">
+              <h3 className="text-xl font-semibold mb-2">{s.name}</h3>
+              <p className="text-gray-400">{s.duration}</p>
+              <p className="text-lg mt-2">{s.price}</p>
+
+              <button className="mt-4 w-full py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500">
+                Book Now
+              </button>
             </div>
-          ))}
-        </div>
-      )}
-
-      {error && (
-        <div className="card p-4 border-red-500/60 text-sm text-red-300 mb-4">
-          {error}
-        </div>
-      )}
-
-      {!loading && !error && (
-        <div className="grid gap-5 md:grid-cols-3">
-          {services.map(service => (
-            <div key={service.id} className="card p-5 flex flex-col gap-3">
-              <div>
-                <p className="text-sm font-semibold">{service.name}</p>
-                <p className="text-xs text-muted">
-                  {service.durationMinutes} min · ${service.price.toFixed(2)}
-                </p>
-              </div>
-              <div className="mt-2">
-                <Link
-                  href={{
-                    pathname: "/booking",
-                    query: { serviceId: service.id }
-                  }}
-                  className="btn-primary w-full justify-center"
-                >
-                  Book now
-                </Link>
-              </div>
-            </div>
-          ))}
-          {services.length === 0 && (
-            <p className="text-sm text-muted">
-              No services configured yet. Add services from the admin dashboard.
-            </p>
-          )}
-        </div>
-      )}
+          </ScrollReveal>
+        ))}
+      </div>
     </div>
-  );
+  )
 }
-

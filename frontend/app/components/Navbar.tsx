@@ -1,49 +1,47 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "next/link"
+import { useEffect, useState } from "react"
 
-const links = [
-  { href: "/home", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/barbers", label: "Barbers" },
-  { href: "/booking", label: "Booking" },
-  { href: "/admin", label: "Admin" }
-];
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
 
-export function Navbar() {
-  const pathname = usePathname();
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
-    <header className="border-b border-border/60 bg-background/80 backdrop-blur">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/home" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-black font-bold tracking-tight">
-            BS
-          </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-sm font-semibold">Barber Studio</span>
-            <span className="text-[11px] text-muted">Premium cuts & grooming</span>
-          </div>
-        </Link>
-        <nav className="hidden md:flex items-center gap-6 text-sm">
-          {links.map(link => {
-            const active = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`transition-colors ${
-                  active ? "text-accent" : "text-muted hover:text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-      </div>
-    </header>
-  );
-}
+    <nav
+      className={`fixed w-full z-50 transition-all ${
+        scrolled
+          ? "backdrop-blur bg-black/40 border-b border-white/10"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+          BarberBook
+        </h1>
 
+        <div className="flex gap-6 text-sm">
+          <Link href="/home">Home</Link>
+          <Link href="/services">Services</Link>
+          <Link href="/barbers">Barbers</Link>
+          <Link href="/booking">Booking</Link>
+        </div>
+
+        <Link
+          href="/booking"
+          className="px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 hover:scale-105 transition"
+        >
+          Book Now
+        </Link>
+      </div>
+    </nav>
+  )
+}

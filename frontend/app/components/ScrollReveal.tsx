@@ -1,34 +1,39 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import {useRef,useEffect,useState} from "react"
 
-export default function ScrollReveal({ children }: any) {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
+export default function ScrollReveal({children}:any){
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-        }
-      },
-      { threshold: 0.2 }
-    )
+const ref=useRef(null)
+const [visible,setVisible]=useState(false)
 
-    if (ref.current) observer.observe(ref.current)
+useEffect(()=>{
 
-    return () => observer.disconnect()
-  }, [])
+const observer=new IntersectionObserver(
+([entry])=>{
+if(entry.isIntersecting){
+setVisible(true)
+}
+},
+{threshold:0.2}
+)
 
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-      }`}
-    >
-      {children}
-    </div>
-  )
+if(ref.current){
+observer.observe(ref.current)
+}
+
+return ()=>observer.disconnect()
+
+},[])
+
+return(
+<div
+ref={ref}
+className={`transition-all duration-700 ${
+visible ? "opacity-100 translate-y-0":"opacity-0 translate-y-12"
+}`}>
+{children}
+</div>
+)
+
 }

@@ -1,13 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  color-scheme: dark;
-}
-
 body {
   background: #08080f;
+  color: white;
 }
 
 .glass {
@@ -16,34 +9,8 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-.container {
-  @apply max-w-6xl mx-auto px-4;
+.gradient-text {
+  background: linear-gradient(90deg,#ff7a18,#ff3d00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
-.card {
-  @apply bg-surface rounded-2xl border border-border shadow-card;
-}
-
-.btn-primary {
-  @apply inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold
-  bg-accent text-black hover:bg-accentSoft transition-colors disabled:opacity-60 disabled:cursor-not-allowed;
-}
-
-.btn-secondary {
-  @apply inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold
-  border border-accent text-accent hover:bg-accent/10 transition-colors;
-}
-
-.input {
-  @apply w-full rounded-xl bg-surfaceAlt border border-border px-3 py-2 text-sm
-  placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent;
-}
-
-.select {
-  @apply input;
-}
-
-.page-title {
-  @apply text-3xl md:text-4xl font-semibold mb-6;
-}
-

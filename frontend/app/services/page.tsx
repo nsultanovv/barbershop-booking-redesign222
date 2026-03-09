@@ -1,13 +1,22 @@
 import ScrollReveal from "../components/ScrollReveal"
 
-async function getServices(){
-  const res = await fetch("http://localhost:8080/api/services",{ cache:"no-store" })
+type Service = {
+  id: number
+  name: string
+  price: number
+  durationMinutes: number
+}
+
+async function getServices(): Promise<Service[]> {
+  const res = await fetch("http://localhost:8080/api/services", {
+    cache: "no-store"
+  })
   return res.json()
 }
 
-export default async function Services(){
+export default async function Services() {
 
-const services = await getServices()
+const services: Service[] = await getServices()
 
 return(
 
@@ -19,7 +28,7 @@ Our Services
 
 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
-{services.map((s,i)=>(
+{services.map((s: Service, i: number)=>(
 
 <ScrollReveal key={i}>
 

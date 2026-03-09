@@ -2,24 +2,18 @@
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
+    "./app/components/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
       colors: {
-        background: "#050709",
-        surface: "#0B0F16",
-        surfaceAlt: "#111827",
-        accent: "#F97316",
-        accentSoft: "#FDBA74",
-        muted: "#6B7280",
-        border: "#1F2933"
-      },
-      boxShadow: {
-        card: "0 18px 45px rgba(0,0,0,0.65)"
+        accent: "#ff7a18",
+        accentSoft: "#ff3d00",
+        surfaceAlt: "#0f0f17",
+        muted: "rgba(255,255,255,0.6)",
+        border: "rgba(255,255,255,0.08)"
       }
-    }
+    },
   },
-  plugins: []
-};
-
+  plugins: [],
+}

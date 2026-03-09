@@ -1,3 +1,5 @@
+"use client"
+
 export default function BarbersPage() {
 
   const barbers = [
@@ -24,7 +26,7 @@ export default function BarbersPage() {
   return (
     <div className="min-h-screen bg-[#08080f] text-white py-24 px-6">
 
-      <h1 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+      <h1 className="text-4xl font-bold text-center mb-12">
         Our Barbers
       </h1>
 
@@ -33,7 +35,7 @@ export default function BarbersPage() {
         {barbers.map((b) => (
           <div
             key={b.id}
-            className="glass p-6 rounded-xl text-center transition duration-300 hover:scale-105 hover:shadow-xl"
+            className="p-6 rounded-xl text-center border border-gray-700"
           >
 
             <img
@@ -42,18 +44,16 @@ export default function BarbersPage() {
               className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
             />
 
-            <h3 className="text-lg font-semibold mt-2">
+            <h3 className="text-lg font-semibold">
               {b.name}
             </h3>
 
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400">
               {b.experience} years experience
             </p>
 
-            <button
-              className="mt-4 px-5 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 transition duration-300"
-            >
-              Book with this barber
+            <button className="mt-4 px-4 py-2 rounded-lg bg-orange-500">
+              Book
             </button>
 
           </div>

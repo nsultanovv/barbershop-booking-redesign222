@@ -1,12 +1,13 @@
 import ScrollReveal from "../components/ScrollReveal"
 
-export default function Services(){
+async function getServices(){
+  const res = await fetch("http://localhost:8080/api/services",{ cache:"no-store" })
+  return res.json()
+}
 
-const services=[
-{name:"Haircut",price:"$20",duration:"30 min"},
-{name:"Beard Trim",price:"$15",duration:"20 min"},
-{name:"Hair + Beard",price:"$30",duration:"45 min"}
-]
+export default async function Services(){
+
+const services = await getServices()
 
 return(
 
@@ -19,15 +20,16 @@ Our Services
 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
 {services.map((s,i)=>(
+
 <ScrollReveal key={i}>
 
 <div className="glass p-6 rounded-xl hover:scale-105 transition">
 
 <h3 className="text-xl font-semibold mb-2">{s.name}</h3>
 
-<p className="text-gray-400">{s.duration}</p>
+<p className="text-gray-400">{s.durationMinutes} min</p>
 
-<p className="text-lg mt-2">{s.price}</p>
+<p className="text-lg mt-2">${s.price}</p>
 
 <button className="mt-4 w-full py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500">
 Book Now
@@ -36,6 +38,7 @@ Book Now
 </div>
 
 </ScrollReveal>
+
 ))}
 
 </div>
